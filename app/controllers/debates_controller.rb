@@ -1,4 +1,4 @@
-class DebateController < ApplicationController
+class DebatesController < ApplicationController
   def show
   end
 
@@ -9,5 +9,6 @@ class DebateController < ApplicationController
   end
 
   def index
+    @debates=Debate.all
   end
 end
