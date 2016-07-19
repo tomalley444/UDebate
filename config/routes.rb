@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  get 'debate/show'
+
+  get 'debate/create'
+
+  get 'debate/edit'
+
+  get 'debate/index'
+
   get 'main_pages/home'
 
   get 'main_pages/about'
