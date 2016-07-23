@@ -1,13 +1,27 @@
 Rails.application.routes.draw do
  
 
+  get 'points/new'
+
+  get 'points/destroy'
+
+  get 'points/show'
+
+  get 'points/edit'
+
   get 'main_pages/home'
 
   get 'main_pages/about'
   
   
+  resources :points do
+    resources :points
+  end
   
-  resources :debates
+  
+  resources :debates do
+    resources :points
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

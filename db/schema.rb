@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160719014658) do
+ActiveRecord::Schema.define(version: 20160721013917) do
 
   create_table "debates", force: :cascade do |t|
     t.string   "topic"
@@ -20,5 +20,16 @@ ActiveRecord::Schema.define(version: 20160719014658) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "points", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "votes"
+    t.integer  "pointable_id"
+    t.string   "pointable_type"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+  end
+
+  add_index "points", ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
 
 end

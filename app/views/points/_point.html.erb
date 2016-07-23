@@ -1,0 +1,22 @@
+<div class="point">
+
+
+<%= point.body %>
+<% puts "POINT IS" %>
+<% puts point %>
+
+<%= form_tag(controller: "points", action: "create", method: "post",) do %>
+  <%= hidden_field_tag(:parent_id, :parent_id, value: point.id) %>
+  <%= text_field_tag(:body) %>
+  <%= submit_tag("test") %>
+<% end %>
+    
+</div>
+
+<div class="point">
+<ul>
+<li><%= render partial: 'points/point', collection: point.points %></li>
+</ul>
+</div>
+
+<p>test</p>

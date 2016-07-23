@@ -1,0 +1,18 @@
+<h1>Debate#show</h1>
+<p>Find me in app/views/debate/show.html.erb</p>
+<p>Create a new comment</p>
+
+<%= form_for([@debate, @debate.points.new]) do |f| %>
+     
+
+      <%= f.label :body %>
+      <%= f.text_field :body %>
+
+      <%= f.submit "Make a Point" %>
+<% end %>
+    
+    
+<%= @debate.summary %>
+<ul>
+<li><%= render partial: 'points/point', collection: @debate.points %></li>
+</ul>
