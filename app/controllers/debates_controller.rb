@@ -19,7 +19,7 @@ class DebatesController < ApplicationController
     
    
    puts Debate.all
-  #@debates=Debate.all
+   @debates=Debate.all
     
   end
 end
