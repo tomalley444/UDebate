@@ -18,8 +18,8 @@ class DebatesController < ApplicationController
   def index
     
    
-    puts Debate.all
-    @debates=Debate.all
+   # puts Debate.all
+  #    @debates=Debate.all
     
   end
 end
