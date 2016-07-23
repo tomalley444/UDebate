@@ -1,0 +1,14 @@
+<%= form_for (@debate) do |f| %>
+
+    <%= f.label :topic %>
+    <%= f.text_field :topic %>
+    
+    <%= f.label :summary  %>
+    <%= f.text_area :summary %>
+    
+    <%= f.label :category %>
+    <%= f.text_field :category %>
+    
+    <%= f.submit "create new debate" %>
+
+<% end %>
