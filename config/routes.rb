@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
  
 
+  resources :users
   get 'points/new'
 
   get 'points/destroy'
