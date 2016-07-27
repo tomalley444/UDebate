@@ -3,24 +3,19 @@ class PointsController < ApplicationController
   end
   
   def create 
-   
-  
+    puts "votestest"
+    puts params
      if orphan?
-     
-     puts params[:point]
-     puts params[:debate_id]
-    #testDebate = Debate.find(params[:debate_id]).points.create(params[:point])
-    testDebate = Debate.find(params[:debate_id]).points.create(body: params[:point][:body])
-     puts "testTEST"
-     puts testDebate
-     
+
+      Debate.find(params[:debate_id]).points.create(body: params[:point][:body])
+    
      
      else 
-      Point.find(params[:parent_id]).points.create(body: params[:body])
-      redirect_to request.referrer
+      Point.find(params[:parent_id]).points.create(body: params[:body], votes: params[:votes])
+      
       
      end
-     
+     redirect_to request.referrer
   end
   
   

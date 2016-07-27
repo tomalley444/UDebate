@@ -10,6 +10,8 @@ class DebatesController < ApplicationController
   end
 
   def create
+    
+    
     Debate.create(topic: params[:debate][:topic], summary: params[:debate][:summary], category: params[:debate][:category])
     redirect_to debates_path
   end
