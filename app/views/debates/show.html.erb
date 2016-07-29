@@ -14,6 +14,10 @@
     
 <%= @debate.summary %>
 
+<% puts "anytest#{Debate.find(@debate.id).points.any?}" %>
+<% if Debate.find(@debate.id).points.any? %>
+
 
 <%= render partial: 'points/point', collection: @debate.points %>
 
+<% end %>

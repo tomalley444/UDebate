@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160721013917) do
+ActiveRecord::Schema.define(version: 20160729003552) do
 
   create_table "debates", force: :cascade do |t|
     t.string   "topic"
@@ -28,8 +27,21 @@ ActiveRecord::Schema.define(version: 20160721013917) do
     t.string   "pointable_type"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.integer  "user_id"
+    t.string   "side"
+    t.index ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
+    t.index ["user_id"], name: "index_points_on_user_id"
   end
 
-  add_index "points", ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
+  create_table "users", force: :cascade do |t|
+    t.string   "name"
+    t.string   "email"
+    t.string   "password_digest"
+    t.integer  "user_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["user_id"], name: "index_users_on_user_id"
+  end
 
 end

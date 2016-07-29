@@ -7,10 +7,23 @@
 <div id = <%="collapse#{point.pointable_id}"%>>
 <% end %>
 
+<% if !point.id.nil? %> 
+<% if point.side == "right" %>
+<%     side = "panel panel-info" %>
+<% elsif point.side == "left" %>
+<%     side = "panel panel-danger" %>
+<% elsif point.side == "neutral" %>
+<%     side = "panel panel-success" %>
+
+<% else %>
+<%     side = "panel panel-warning" %>
+
+<% end %>
 
 <div class = "panel-thread">
-   <div class = "panel panel-info">
-         <div class = "panel panel-heading">User Wrote</div>
+   <div class = "<%= side %>" >
+       
+         <div class = "panel panel-heading"><%= User.find(point.user_id).name %></div>
          <div class = "panel-body">
               <%= point.body %>
             <%= point.id %>
@@ -30,6 +43,7 @@
            <%= form_tag(controller: "points", action: "create", method: "post", class: "form-inline") do %>
               <%= hidden_field_tag(:parent_id, :parent_id, value: point.id) %>
               <%= text_area_tag  "body", nil, class: "form-control" %>
+              <%= text_field_tag "side", nil, class: "form-control" %>
               <%= number_field_tag "votes", nil, class: "form-control" %>
              
                   <%= submit_tag "Submit", name: nil, class: "btn btn-success green" %>
@@ -38,15 +52,24 @@
             </div>
       </div>
        <div id = <%="collapse#{point.id}"%> class = "panel-collapse collapse in">
-              
+           
+           
+           
+           
               <%= render partial: 'points/point', collection: point.points.order(:votes) %>
+            
+             
             </div>
        </div>   
        
-       
+     
+
+
+
+
        </div>
    
-
+<% end %>
 <% if point.pointable_type == ("Debate") %>
   </div>
    </div>

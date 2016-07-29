@@ -1,4 +1,6 @@
 class PointsController < ApplicationController
+ 
+  
   def new
   end
   
@@ -6,12 +8,16 @@ class PointsController < ApplicationController
     puts "votestest"
     puts params
      if orphan?
-
-      Debate.find(params[:debate_id]).points.create(body: params[:point][:body])
+       
+       puts "SESSSION IDDDDDDDDDDDDDDDD"
+      puts current_user.id
+      
+      Debate.find(params[:debate_id]).points.create(body: params[:point][:body], user_id: current_user.id)
     
      
      else 
-      Point.find(params[:parent_id]).points.create(body: params[:body], votes: params[:votes])
+       
+      Point.find(params[:parent_id]).points.create(body: params[:body], votes: params[:votes], side: params[:side], user_id: session[:user_id])
       
       
      end

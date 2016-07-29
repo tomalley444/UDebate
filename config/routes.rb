@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
  
 
+  get 'sessions/new'
+
   resources :users
   get 'points/new'
 
@@ -13,6 +15,12 @@ Rails.application.routes.draw do
   get 'main_pages/home'
 
   get 'main_pages/about'
+  
+  get 'signup' => 'users#new'
+  
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
   
   
   resources :points do
