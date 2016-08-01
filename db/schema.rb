@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160731011150) do
+ActiveRecord::Schema.define(version: 20160801235606) do
 
   create_table "debates", force: :cascade do |t|
     t.string   "topic"
@@ -35,12 +35,13 @@ ActiveRecord::Schema.define(version: 20160731011150) do
     t.integer  "votes"
     t.integer  "pointable_id"
     t.string   "pointable_type"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.integer  "user_id"
     t.string   "side"
     t.string   "test"
     t.integer  "debate_id"
+    t.integer  "point_debate_id"
     t.index ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
     t.index ["user_id"], name: "index_points_on_user_id"
   end
