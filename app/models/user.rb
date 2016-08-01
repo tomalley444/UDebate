@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
     has_secure_password
     
     has_many :points
+    has_many :participations
     
     def User.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

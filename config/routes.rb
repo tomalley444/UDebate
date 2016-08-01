@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
  
-
+  patch 'participations' => 'participations#update'
+  
+  resources :participations
   get 'sessions/new'
 
   resources :users

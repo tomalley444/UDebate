@@ -1,27 +1,26 @@
 class PointsController < ApplicationController
- 
+ before_action :authenticate, only: [:create]
   
   def new
   end
   
   def create 
-    puts "votestest"
-    puts params
+  
+  
      if orphan?
        
-       puts "SESSSION IDDDDDDDDDDDDDDDD"
-      puts current_user.id
-      
-      Debate.find(params[:debate_id]).points.create(body: params[:point][:body], user_id: current_user.id)
-    
-     
+
+      Debate.find(params[:debate_id]).points.create(body: params[:point][:body], votes: params[:point][:votes], side: get_side(current_user, nil, params[:debate_id]), user_id: current_user.id, debate_id: params[:debate_id])
+
      else 
-       
-      Point.find(params[:parent_id]).points.create(body: params[:body], votes: params[:votes], side: params[:side], user_id: session[:user_id])
+      parent_point = Point.find(params[:parent_id])
+      parent_point.points.create(body: params[:body], votes: params[:votes], side: get_side(current_user, nil,  parent_point.debate_id), user_id: current_user.id, debate_id: parent_point.debate_id)
       
       
      end
-     redirect_to request.referrer
+     
+     redirect_to request.referrer 
+     
   end
   
   
@@ -36,6 +35,13 @@ class PointsController < ApplicationController
   end
 end
 
+private
+
+def point_params
+ 
+ params.require(:point).permit(:body, :votes, :side)
+ 
+end
 
 def orphan?
   

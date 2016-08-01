@@ -1,0 +1,56 @@
+
+        
+        <% debate.each do |point| %>
+           
+            
+            <% if !point.user_id.nil? %>
+            
+                <div class = "panel-thread">
+                   <div class = "<%= get_point_style(point) %>" >
+                       
+                         <div class = "panel panel-heading"><%= User.find(point.user_id).name %></div>
+                         <div class = "panel-body">
+                            <%= point.body %>
+                            <%= point.id %>
+                         </div>
+                         
+                         
+                            <button class="btn btn-primary-outline" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>>
+                              Show Children
+                            </button>
+                            
+                            <button class="btn btn-primary-outline" data-toggle = "collapse"  data-target =<%="#collapseform#{point.id}"%>>
+                              reply
+                            </button>
+                            
+                            <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
+                              
+                           <%= form_tag(controller: "points", action: "create", method: "post", class: "form-inline") do %>
+                              <%= hidden_field_tag(:parent_id, :parent_id, value: point.id) %>
+                              <%= text_area_tag  "body", nil, class: "form-control" %>
+                              <%= text_field_tag "side", nil, class: "form-control" %>
+                              <%= number_field_tag "votes", nil, class: "form-control" %>
+                             
+                                  <%= submit_tag "Submit", name: nil, class: "btn btn-success green" %>
+                              
+                            <% end %>
+                            </div>
+                      </div>
+                       <div id = <%="collapse#{point.id}"%> class = "panel-collapse collapse in" >
+                           
+                           
+                           
+                           
+                              <%= render partial: 'points/point2', collection: point.points.order(:votes) %>
+                            
+                             
+                        </div>
+                </div>   
+                   
+            <% end %>
+        
+        
+        <% end %>
+    
+    
+    

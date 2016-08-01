@@ -1,18 +1,19 @@
 class DebatesController < ApplicationController
   def show
-    
-    puts "Show Action Test"
-    puts params
-    puts params[:id]
-    puts Debate.find(params[:id])
+  
     @debate = Debate.find(params[:id])
+    @participating = participating?(current_user, @debate)
+
+    if @participating && logged_in?
+      @side = get_side(current_user, @debate)
+      @participation = current_user.participations.find_by_debate_id(@debate.id)
+    end
     
   end
 
   def create
-    
-    
-    Debate.create(topic: params[:debate][:topic], summary: params[:debate][:summary], category: params[:debate][:category])
+   
+    Debate.create(debate_params)
     redirect_to debates_path
   end
   
@@ -25,9 +26,16 @@ class DebatesController < ApplicationController
 
   def index
     
-   
    puts Debate.all
    @debates=Debate.all
     
   end
+  
+  private
+
+    def debate_params
+      params.require(:debate).permit(:topic, :summary, :category)
+    end
 end
+
+

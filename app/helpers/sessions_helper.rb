@@ -19,5 +19,18 @@ module SessionsHelper
         !current_user.nil?
     end
 
+    def authenticate
+        
+        if !logged_in?
+        puts "NOooooooooooooooo"
+            flash[:danger] = "Please log in."
+            redirect_to login_path
+             
+        else
+        puts "AUTHENTICccccccccccckkkkkkkkkk"
+        flash[:danger] = "logged in!"
+        
+        end
+    end
 
 end

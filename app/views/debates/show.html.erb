@@ -1,23 +1,101 @@
-<h1>Debate#show</h1>
-<p>Find me in app/views/debate/show.html.erb</p>
-<p>Create a new comment</p>
+<div class="container-fluid">
+      <div class="row">
+            
+            <div class="col-md-10">
+                  <div class="panel panel-default">
+                        <div class="panel panel-heading">
+                              <%= @debate.topic %>
+                        </div>
+                        <div class="panel panel-body" style="margin-bottom:0px;">
+                              <%= @debate.summary %>
+                               
+                        </div>
+                       
+                        
+                  </div>
+            </div>
+            <% #if !Participation.where(user_id: current_user.id, debate_id: @debate.id).exists? %>
+      <% if !@participating %>
+            <div class="col-sm-2">
+                   <%= form_tag(controller: "participations", action: "create", method: "post", class: "form-inline") do %>
+       
+                        <%= hidden_field_tag(:debate_id, :debate_id, value: @debate.id) %>
+                        <%= text_field_tag "side", nil, class: "form-control" %>
+                        <%= submit_tag "Submit", name: nil, class: "btn btn-success green" %>
+                        
+                  <% end %>
+            </div>
+      <% else %>
+            <div class="col-md-2">
+            <div class="well">
+                    <h4>Participation Info</h1>
+                    <hr class="divider"></hr>
+                    <%= "Side: #{@side}" %>
+                        <%= form_for @participation do |f| %>
+                          
+                        
+                          <%= f.submit  id: "test123" %>
+                        <% end %>
+            </div>
+            </div>
+           
+            
+      <% end %>
+       
+      </div>
+</div>
 
-<%= form_for([@debate, @debate.points.new]) do |f| %>
-     
-      <%= f.hidden_field(:parent_id, :value => nil) %>
-      <%= f.label :body %>
-      <%= f.text_field :body %>
 
-      <%= f.submit "Make a Point" %>
-<% end %>
-    
-    
-<%= @debate.summary %>
-
-<% puts "anytest#{Debate.find(@debate.id).points.any?}" %>
-<% if Debate.find(@debate.id).points.any? %>
+</div>
+</div>
 
 
-<%= render partial: 'points/point', collection: @debate.points %>
 
-<% end %>
+
+<div class = "row" style="margin-left:5px;">
+      <div class = "col-sm-6" >
+           <h2>Left Side</h2>
+           <hr class="divider"></hr>
+       
+            <% if @side == "left" && @participating %>
+             
+            <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makePoint">
+                              Make a Point
+            </button>   
+                  <div id="makePoint" class="collapse">
+                
+                  <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
+                       
+                  </div>
+            <% end %>
+            <% if Debate.find(@debate.id).points.any? %>
+            <%= render partial: "/debates/leftside", locals: {debate: @debate.points.select {|point| point.side=="left" }, side: @side} %>
+            <% end %>
+      </div>
+      
+      <div class = "col-sm-6" >
+              <h2>Right Side</h2>
+           <hr class="divider"></hr>
+           
+            <% if @side == "right" && @participating %>
+            
+             <button class="btn btn-info" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makePoint">
+                              Make a Point
+             </button>
+            
+                  <div id="makePoint" class="collapse">
+                       <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
+                       
+                    
+                  </div>
+            <% end %>
+           
+            <% if Debate.find(@debate.id).points.any? %>
+                  <%= render partial: "/debates/leftside", locals: {debate: @debate.points.select {|point| point.side=="right" }, side: @side} %>
+            <% end %>
+      </div>
+</div>
+
+</div>
+</div>
+

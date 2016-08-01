@@ -22,17 +22,12 @@
     
 }
 
-
-
-.border-left {
-  
+.panel-body  {
+    word-break:break-all
 }
 
-.panel-info {
- 
-  margin-top: 10px;
-  margin-left: 10px;
-}
+
+
 
 .panel-thread {
   margin-left: 10px;
