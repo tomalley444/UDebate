@@ -2,7 +2,7 @@
                     
       <div class="panel panel-heading">New Point</div>
       <div class="panel-body">
-            <%= form_for([debate, debate.points.new], remote: true) do |f| %>
+            <%= form_for([debate, debate.points.new]) do |f| %>
                  
                   <%= f.hidden_field(:parent_id, :value => nil) %>
                   <%= f.hidden_field(:debate_id, :value => debate.id) %>
