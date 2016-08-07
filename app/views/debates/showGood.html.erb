@@ -1,7 +1,7 @@
-<div class="container-fixed">
+<div class="container-fluid">
       <div class="row">
             
-            <div class="col-md-9">
+            <div class="col-md-10">
                   <div class="panel panel-default">
                         <div class="panel panel-heading">
                               
@@ -74,40 +74,35 @@
 
 
 
-      
-
+<div class = "container-fluid">
+<div class = "row" style="margin-left:5px;">
       <div class = "col-sm-4" >
            <h2>Left Side</h2>
            <hr class="divider"></hr>
-
+       
             <% if @side == "left" && @participating %>
-                  <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeLeftPoint">
-                        Make a Point
-                  </button>   
-                  
-                  <div id="makeLeftPoint" class="collapse">
-                  
-                        <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
-                  
+             
+            <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makePoint">
+                              Make a Point
+            </button>   
+                  <div id="makePoint" class="collapse">
+                
+                  <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
+                       
                   </div>
-           
-            <% else %>
-                  <button class="btn btn-danger-disabled" style="width:100%; margin-bottom:5px; disabled: true;">
-                        Make a Point
-                  </button>   
             <% end %>
-   
-        <% if Debate.find(@debate.id).points.any? %>
+            <% if Debate.find(@debate.id).points.any? %>
             <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="left" }, side: @side, debate: @debate} %>
-        <% end %>
-      
- 
+            <% end %>
       </div>
-  
-       <div class = "col-sm-4" >
+      
+      
+       <div class = "col-sm-3" >
            <h2>Neutral</h2>
            <hr class="divider"></hr>
-
+       
+           
+             
             <button class="btn btn-success" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeNeutralPoint">
                   Make a Point
             </button>   
@@ -116,49 +111,36 @@
                   <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: "neutral"} %>
                        
                   </div>
-                  
-       
-         <% if Debate.find(@debate.id).points.any? %>
-            <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="neutral" }, side: "neutral", debate: @debate} %>
-         <% end %>
-       
-
+         
+            <% if Debate.find(@debate.id).points.any? %>
+            <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="neutral" }, side: "neutral"} %>
+            <% end %>
       </div>
-
+      
+      
       <div class = "col-sm-4" >
               <h2>Right Side</h2>
            <hr class="divider"></hr>
            
             <% if @side == "right" && @participating %>
             
-             <button class="btn btn-info" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeRightPoint">
+             <button class="btn btn-info" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makePoint">
                               Make a Point
              </button>
             
-                  <div id="makeRightPoint" class="collapse">
+                  <div id="makePoint" class="collapse">
                        <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
-
+                       
+                    
                   </div>
-                  
-            <% else %>
-                  <button class="btn btn-info disabled" style="width:100%; margin-bottom:5px; disabled: true;">
-                        Make a Point
-                  </button>
-            
             <% end %>
-            
-             
-          <% if Debate.find(@debate.id).points.any? %>
+           
+            <% if Debate.find(@debate.id).points.any? %>
                   <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="right" }, side: @side, debate: @debate} %>
-          <% end %>
-         
-           
-           
+            <% end %>
       </div>
+</div>
 
-   
-     
-       
-
-
-
+</div>
+</div>
+</div>

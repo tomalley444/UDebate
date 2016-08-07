@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160801235606) do
+ActiveRecord::Schema.define(version: 20160806235845) do
 
   create_table "debates", force: :cascade do |t|
     t.string   "topic"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(version: 20160801235606) do
     t.string   "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "owner_id"
   end
 
   create_table "participations", force: :cascade do |t|
@@ -32,7 +33,6 @@ ActiveRecord::Schema.define(version: 20160801235606) do
 
   create_table "points", force: :cascade do |t|
     t.text     "body"
-    t.integer  "votes"
     t.integer  "pointable_id"
     t.string   "pointable_type"
     t.datetime "created_at",      null: false
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20160801235606) do
     t.string   "test"
     t.integer  "debate_id"
     t.integer  "point_debate_id"
+    t.integer  "votes_count"
     t.index ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
     t.index ["user_id"], name: "index_points_on_user_id"
   end
@@ -55,6 +56,14 @@ ActiveRecord::Schema.define(version: 20160801235606) do
     t.datetime "updated_at",      null: false
     t.index ["email"], name: "index_users_on_email"
     t.index ["user_id"], name: "index_users_on_user_id"
+  end
+
+  create_table "votes", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "point_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["point_id"], name: "index_votes_on_point_id"
   end
 
 end

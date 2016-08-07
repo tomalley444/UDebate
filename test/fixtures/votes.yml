@@ -1,12 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  body: text blah 
-  votes: 1
-  pointable_id: 3
-
+  user_id: 1
 
 two:
-  body: text 123
-  votes: 3
-  pointable_id: 4
+  user_id: 1

@@ -1,13 +1,40 @@
-
-<ul>
-<% @debates.each do |d|%>
-
-<li> <%= link_to d.summary, debate_path(d.id)  %> </li>
-
-<% end %>
-
-
-</ul>
-
-<%= link_to "new debate", new_debate_path %>
-
+    
+<div class="container">    
+    <table class="table">
+        <thead>
+          <tr>
+            <th class="col-sm-2">Topic</th>
+            <th class ="col-sm-10">Summary</th>
+           
+          </tr>
+        </thead>
+        
+        <tbody>
+    
+    <% @debates.each do |d| %>
+        
+       
+            <tr>
+              
+            <td class="topic">  <a href="<%= debate_path(d.id) %>"><%= d.topic %> </a></td>
+            <td>
+                <div>
+                    <%= d.summary %> 
+                </div>
+                
+                <div class="indexFoot"> Submitted By: <%= link_to User.find(d.owner_id).name, user_path(User.find(d.owner_id).id) %></div>
+            
+            
+            </td>
+            
+            </tr>
+    
+        
+    
+    
+    <% end %> 
+    
+         </tbody>
+    
+    </table>
+</div>

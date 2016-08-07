@@ -4,9 +4,10 @@
       <div class="panel-body">
             <%= form_for([debate, debate.points.new]) do |f| %>
                  
-                  <%= f.hidden_field(:parent_id, :value => nil) %>
-                  <%= f.hidden_field(:debate_id, :value => debate.id) %>
-                  <%= f.text_area :body, class: "form-control" %>
+                   <%= f.hidden_field :parent_id, value: "debate" %>
+                   <%= f.hidden_field :debate_id, value: debate.id %>
+                   <%= f.hidden_field :side, value: side %>
+                   <%= f.text_area :body, class: "form-control" %>
                   
                   <%= f.submit "Make a Point", class: "form-control" %>
                   <%= flash[:danger]%>

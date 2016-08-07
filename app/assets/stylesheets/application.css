@@ -12,6 +12,7 @@
  *
  *= require_tree .
  *= require_self
+ *= require font-awesome
  */
 
 .point{
@@ -34,3 +35,69 @@
   
 }
 
+
+th{
+  
+  font-family: 'Monda', sans-serif;
+  font-size: x-large;
+  
+}
+
+tr{
+  
+  
+}
+
+.topic{
+  
+   font-size: large;
+   
+}
+
+.clickable:hover{
+ 
+   background-color: rgba(0, 0, 250, 0.04);
+   cursor: pointer;
+  
+}
+
+.tablewell{
+  
+  background-color: white;
+  
+}
+
+.indexFoot{
+    
+    font-style: italic;
+    margin-top: 5px;
+    color: rgba(64, 64, 64, .5);
+    
+}
+
+h2{
+    
+    text-align: center;
+}
+
+.col-left{
+float: none;
+margin: 0 auto;
+
+border-style: solid;
+border-width: 5px;
+}
+
+.inline{
+    
+    display: inline;
+    border-style: dashed;
+    border-width: 1px;
+ 
+}
+
+.pull-right{
+   
+    margin-right: 3px;
+    
+}

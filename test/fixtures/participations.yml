@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
+left:
   user: one
   debate: one
-  side: MyString
+  side: left
 
-two:
+right:
   user: two
   debate: two
-  side: MyString
+  side: right
