@@ -7,6 +7,9 @@ class DebatesController < ApplicationController
     if @participating && logged_in?
       @side = get_side(current_user, @debate.id)
       @participation = current_user.participations.find_by_debate_id(@debate.id)
+      @debate_current_user = current_user
+      
+      
     end
     
   end

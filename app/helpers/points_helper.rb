@@ -35,4 +35,15 @@ def get_new_point_style(side)
 
 end
 
+def user_voted?(point_id, voting_user_id)
+    
+    point = Point.find(point_id)
+    if point.votes.where(user_id: voting_user_id).exists?
+        true
+    else
+        false
+
+    end
+end
+
 end

@@ -1,7 +1,7 @@
-<div class="container-fixed">
+<div class="container-fluid">
       <div class="row">
             
-            <div class="col-md-9">
+            <div class="col-md-10">
                   <div class="panel panel-default">
                         <div class="panel panel-heading">
                               
@@ -11,16 +11,17 @@
                               <%= @debate.summary %>
                                
                         </div>
-          
-                        
+
                   </div>
             </div>
-            
+             <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "hide"  data-target = "#testid">
+                        Make a Point
+                  </button>
             <% #if !Participation.where(user_id: current_user.id, debate_id: @debate.id).exists? %>
       <% if !logged_in? %>
             <div class="col-sm-2">
             <div class = "well">
-                  
+               
                     <h4>Participation Info</h1>
                     <hr class="divider"></hr>
                    
@@ -28,7 +29,7 @@
                     <%= link_to "login", login_path %>
                     <%= link_to "signup", signup_path %>
                         
-                
+                   
             </div>
             </div>
       
@@ -92,7 +93,7 @@
                   </div>
            
             <% else %>
-                  <button class="btn btn-danger-disabled" style="width:100%; margin-bottom:5px; disabled: true;">
+                  <button class="btn btn-danger disabled" style="width:100%; margin-bottom:5px; disabled: true;">
                         Make a Point
                   </button>   
             <% end %>
@@ -104,7 +105,10 @@
  
       </div>
   
-       <div class = "col-sm-4" >
+ 
+           
+
+       <div class = "col-sm-4" id = "testid" >
            <h2>Neutral</h2>
            <hr class="divider"></hr>
 
@@ -117,10 +121,11 @@
                        
                   </div>
                   
-       
+     
          <% if Debate.find(@debate.id).points.any? %>
             <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="neutral" }, side: "neutral", debate: @debate} %>
          <% end %>
+     
        
 
       </div>

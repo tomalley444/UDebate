@@ -14,14 +14,14 @@
             <div class = "col-sm-6 pull-right">
                 
             <div class = "col-sm-2 pull-right">
-                    <span class="badge" id="<%= "votebadge#{point2.id}" %>" > <%= point2.votes_count %> </span>
+                    <span class="badge" id="<%= "votebadge#{point2.id}" %>" > <%= point2.votes_count ||= 0%> </span>
             </div>
             <div class = "col-sm-2 pull-right">
             <%= form_for(point2, remote: true) do |f| %>
                 <%= f.hidden_field :voting, value: true %>
                 <%= f.hidden_field :point_id, value: point2.id %>
                    
-                <%= f.button :submit, name: "conceal", value: "1", id: "votebutton#{point2.id}" do %>
+                <%= f.button :submit, name: "conceal", value: "1", id: "votebutton#{point2.id}", disabled: user_voted?(point2.id, @debate_current_user.id) do %>
                     <i class="fa fa-thumbs-up" aria-hidden="true"></i>
                 <% end %>
                 
