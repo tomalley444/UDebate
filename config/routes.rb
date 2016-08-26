@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   post 'login' => 'sessions#create'
   delete 'logout' => 'sessions#destroy'
   
+ 
   
   resources :points do
     resources :points
@@ -32,6 +33,12 @@ Rails.application.routes.draw do
   
   resources :debates do
     resources :points
+    
+    collection do
+    get 'test1' => 'debates#test1'
+    patch 'test1' => 'debates#test1'
+    
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

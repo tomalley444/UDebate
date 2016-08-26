@@ -2,6 +2,7 @@ class DebatesController < ApplicationController
   def show
   
     @debate = Debate.find(params[:id])
+    @debate_points = @debate.points.order(:votes_count).reverse_order
     @participating = participating?(current_user, @debate.id)
 
     if @participating && logged_in?
@@ -31,6 +32,21 @@ class DebatesController < ApplicationController
   end
 
   def edit
+  end
+  
+  def test1
+    puts "WORKED"
+    @point = Point.find(params[:conceal])
+    @debate = Debate.find(params[:id])
+    @side = get_side(current_user, @debate.id)
+    @debate_current_user =current_user
+   
+     
+    respond_to do |format|
+      
+      format.js
+      
+    end
   end
 
   def index

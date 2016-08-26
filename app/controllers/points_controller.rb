@@ -5,6 +5,9 @@ class PointsController < ApplicationController
   def new
   end
   
+  def test1
+  
+  end
   def create 
       
      

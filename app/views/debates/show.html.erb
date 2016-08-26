@@ -1,4 +1,6 @@
+
 <div class="container-fluid">
+
       <div class="row">
             
             <div class="col-md-10">
@@ -14,9 +16,7 @@
 
                   </div>
             </div>
-             <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "hide"  data-target = "#testid">
-                        Make a Point
-                  </button>
+           
             <% #if !Participation.where(user_id: current_user.id, debate_id: @debate.id).exists? %>
       <% if !logged_in? %>
             <div class="col-sm-2">
@@ -29,7 +29,7 @@
                     <%= link_to "login", login_path %>
                     <%= link_to "signup", signup_path %>
                         
-                   
+                 
             </div>
             </div>
       
@@ -62,6 +62,12 @@
                         
                           <%= f.submit  id: "test123", class: "form-control" %>
                         <% end %>
+                    <hr class="divider"></hr>
+                       <div class="btn-group btn-group-xs">
+                          <button type="button" id = "leftShow" class="btn btn-danger">Left</button>
+                          <button type="button" id = "neutralShow" class="btn btn-success">Neutral</button>
+                          <button type="button" id = "rightShow" class="btn btn-info">Right</button>
+                        </div>
             </div>
             </div>
            
@@ -77,7 +83,7 @@
 
       
 
-      <div class = "col-sm-4" >
+      <div id = "leftSide" class = "col-sm-4" >
            <h2>Left Side</h2>
            <hr class="divider"></hr>
 
@@ -99,7 +105,7 @@
             <% end %>
    
         <% if Debate.find(@debate.id).points.any? %>
-            <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="left" }, side: @side, debate: @debate} %>
+            <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="left" }, side: @side, debate: @debate} %>
         <% end %>
       
  
@@ -108,7 +114,7 @@
  
            
 
-       <div class = "col-sm-4" id = "testid" >
+       <div class = "col-sm-4" id = "neutralSide" >
            <h2>Neutral</h2>
            <hr class="divider"></hr>
 
@@ -123,14 +129,14 @@
                   
      
          <% if Debate.find(@debate.id).points.any? %>
-            <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="neutral" }, side: "neutral", debate: @debate} %>
+            <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="neutral" }, side: "neutral", debate: @debate} %>
          <% end %>
      
        
 
       </div>
 
-      <div class = "col-sm-4" >
+      <div class = "col-sm-4" id = "rightSide" >
               <h2>Right Side</h2>
            <hr class="divider"></hr>
            
@@ -154,7 +160,7 @@
             
              
           <% if Debate.find(@debate.id).points.any? %>
-                  <%= render partial: "/debates/leftside", locals: {points: @debate.points.select {|point| point.side=="right" }, side: @side, debate: @debate} %>
+                  <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="right" }, side: @side, debate: @debate} %>
           <% end %>
          
            

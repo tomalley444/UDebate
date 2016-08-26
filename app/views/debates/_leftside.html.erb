@@ -9,71 +9,58 @@
                    <div class = "<%= get_point_style(point) %>" >
 
                         <div class = "panel panel-heading">
-                            <div class = "row">
-                                <div class = "col-sm-3 pull-left">
-                                <%= User.find(point.user_id).name %>
-                                </div>
-                                
+                                <div class = "row">
+                                     <div class = "col-sm-3 pull-left">
+                                    <%= User.find(point.user_id).name %>
+                                    </div>
+                                    
                                     <div class = "col-sm-6 pull-right">
                                         
-                                        <div class = "col-sm-2 pull-right">
-                                            <span class="badge" id="<%= "votebadge#{point.id}" %>" > <%= point.votes_count ||= 0 %> </span>
-                                            
-                                        </div>
-                                        <div class = "col-sm-2 pull-right">
-                                           
-                                            <%= form_for(point, remote: true) do |f| %>
-                                                <%= f.hidden_field :voting, value: true %>
-                                                <%= f.hidden_field :point_id, value: point.id %>
-                                                <%= f.button :submit, name: "conceal", value: "1" , id: "votebutton#{point.id}", disabled: user_voted?(point.id, @debate_current_user.id) do %>
-                                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                                <% end %>
-                                              
-
-                                            <% end %>
-                                            
+                                    <div class = "col-sm-2 pull-right" style="width:10px">
+                                            <span class="badge" id="<%= "votebadge#{point.id}" %>" > <%= point.votes_count ||= 0%> </span>
                                     </div>
-                                
-                                
-                                </div>
-                            
-                            </div>
+                                    <div class = "col-sm-2 pull-right" style="width:10px">
+                                    <%= form_for(point, remote: true) do |f| %>
+                                        <%= f.hidden_field :voting, value: true %>
+                                        <%= f.hidden_field :point_id, value: point.id %>
+                                           <% user_voted?(point.id, @debate_current_user.id) %>
+                                        <%= f.button :submit, name: "conceal", value: "1", id: "botebutton#{point.id}", disabled: false do %>
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        <% end %>
+                                        
+                                    <% end %>
+                                    </div>
+                                    </div>
                         </div>
-                         
+                         </div>
                          <div class = "panel-body">
                             <p> <%= point.body %> </p>
-                            <%= point.id %>
-                            <%= point.votes_count %>
-                            <%= point.side %>
-                            
+
                          </div>
+                   
+
                          
                          
-                            <button class="btn btn-primary-outline" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>>
-                              Show Children
-                            </button>
-                            
+                            <% if point.points.any? || point.side != "neutral" %>
+                            <button class="fa fa-plus" aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>></button>
+                            <% end %>
                             <% if side != point.side %>
                            
-                            <button class="btn btn-primary-outline" data-toggle = "collapse"  data-target =<%="#collapseform#{point.id}"%>>
-                             Rebuddle
-                            
-                            </button>
-                            
+                        
+                            <button class="fa fa-comment" aria-hidden="true" data-toggle = "collapse" data-target =<%="#collapseform#{point.id}"%>></button>
                             <% end %>
                             <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
                               
                          
                             
                             <%= form_for ([debate, debate.points.new]) do |f| %>
-                                <p>testform</p>
                               <%= f.hidden_field :parent_id, value: point.id %>
                               <%= f.hidden_field :debate_id, value: debate.id %>
                              
                               
                               <%= f.text_area :body, class: 'form-control' %>
                               
-                              <%= f.submit "test point", class: 'form-control' %>
+                              <%= f.submit "Submit Rebuddle", class: 'form-control' %>
                     
                             <% end %>
                             </div>
@@ -83,9 +70,11 @@
                            
                            
                           
-                              <%= render partial: 'points/point2', collection: point.points.order(:votes_count), locals: {side: side, debate: debate} %>
+                              <%= render partial: 'points/point2', collection: point.points.order(:votes_count).take(2), locals: {side: side, debate: debate} %>
                             
-                             
+                            
+                         
+
                       </div>
                 </div>   
                    

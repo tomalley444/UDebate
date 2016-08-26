@@ -35,14 +35,13 @@
          </div>
          <div class = "panel-body">
             <%= point2.body %>
-         
+            <%= point2.id %>
          </div>
          
-           <% if point2.points.any? && point2.side != "neutral" %>
-
+         
            <button class="fa fa-plus" aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point2.id}"%>></button>
-                    
-           <% end %>
+                            
+        
             <% if side != point2.side %>
                            
                         
