@@ -1,5 +1,7 @@
 
 $(document).ready(function(){
+    
+
  
     $("#test123").prop("disabled",false);
     
@@ -10,6 +12,7 @@ $(document).ready(function(){
         $("#leftSide").toggle();
         reSizeDivs(prevDivs);
         toggleOpacity($(this));
+        
         
         
     })
