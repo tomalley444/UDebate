@@ -20,14 +20,25 @@
                                             <span class="badge" id="<%= "votebadge#{point.id}" %>" > <%= point.votes_count ||= 0%> </span>
                                     </div>
                                     <div class = "col-sm-2 pull-right" style="width:10px">
-                                    <%= form_for(point, remote: true) do |f| %>
-                                        <%= f.hidden_field :voting, value: true %>
-                                        <%= f.hidden_field :point_id, value: point.id %>
-                                           <% user_voted?(point.id, @debate_current_user.id) %>
-                                        <%= f.button :submit, name: "conceal", value: "1", id: "botebutton#{point.id}", disabled: false do %>
-                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                        <% end %>
                                         
+                                    <% if logged_in? %>
+                                        <%= form_for(point, remote: true) do |f| %>
+                                            <%= f.hidden_field :voting, value: true %>
+                                            <%= f.hidden_field :point_id, value: point.id %>
+                                               <% user_voted?(point.id, @debate_current_user.id) %>
+                                            <%= f.button :submit, name: "conceal", value: "1", id: "botebutton#{point.id}", disabled: false do %>
+                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <% end %>
+                                            
+                                        <% end %>
+                                    
+                                    
+                                    <% else %>
+                                    
+                                    <button disabled>
+                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                    </button>
+                                    
                                     <% end %>
                                     </div>
                                     </div>
