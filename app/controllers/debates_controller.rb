@@ -4,7 +4,8 @@ class DebatesController < ApplicationController
     @debate = Debate.find(params[:id])
     @debate_points = @debate.points.order(:votes_count).reverse_order
     @participating = participating?(current_user, @debate.id)
-
+    test_mem2
+    
     if @participating && logged_in?
       @side = get_side(current_user, @debate.id)
       @participation = current_user.participations.find_by_debate_id(@debate.id)

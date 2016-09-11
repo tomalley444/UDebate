@@ -1,7 +1,10 @@
 
 $(document).ready(function(){
 
+     $("#edit_point_565").submit(function() {
+      alert( "Handler for .submit() called." );
 
+  });
  
     $("#test123").prop("disabled",false);
     
@@ -16,6 +19,10 @@ $(document).ready(function(){
         
         
     })
+ 
+ $(document).bind('ajaxSuccess', function() {
+    alert('!');
+});
     
      $("#neutralShow").click(function(){
         
@@ -42,6 +49,8 @@ $(document).ready(function(){
         
         alert("expand");
     })
+    
+    var numClicks = 0;
     
   
 });

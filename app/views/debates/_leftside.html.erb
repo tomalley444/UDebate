@@ -1,7 +1,7 @@
 
         
         <% points.each do |point| %>
-           
+           <% @showing = 0 %>
             
             <% if !point.user_id.nil? %>
             
@@ -83,8 +83,18 @@
                           
                               <%= render partial: 'points/point2', collection: point.points.order(:votes_count).take(2), locals: {side: side, debate: debate} %>
                             
+                            <div id = "testbest">
+                                blah
+                            <%= form_for(point, remote: true) do |f| %>
                             
-                         
+                              <%= f.hidden_field :expanding, value: true %>
+                              <%= f.hidden_field :point_id, value: point.id %>
+                              
+                              <%= f.submit "Show More", class: 'form-control' %>
+                    
+                            <% end %>
+                            </div>
+                              
 
                       </div>
                 </div>   
@@ -96,3 +106,20 @@
     
     
     
+      
+<%= javascript_tag do %>
+  alert("My example alert box.");
+  console.log("test")
+  var showing = 2
+  
+      <%= @showing +=1 %>
+  
+     $("#testbest").click(function() {
+      alert( "<%= @showing %>" );
+     
+        exit()
+      });
+ 
+
+<% end %>
+

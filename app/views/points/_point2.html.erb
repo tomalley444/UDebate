@@ -53,7 +53,7 @@
             
             <div id =<%="collapseform#{point2.id}"%> class = "panel-collapse collapse" >
               
-
+            
             <%= form_for([debate, debate.points.new]) do |f| %>
             
                 <%= f.hidden_field :parent_id, value: point2.id %>
@@ -63,6 +63,7 @@
             
             <% end %>
                 
+         
             </div>
       </div>
        <div id = <%="collapse#{point2.id}"%> class = "panel-collapse collapse in" >
@@ -73,5 +74,7 @@
             </div>
        </div>   
        
-      
+       <div id = "mensch">mensch</div>
+       
+
 

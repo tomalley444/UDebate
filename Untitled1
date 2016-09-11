@@ -1,4 +1,26 @@
-class PointsController < ApplicationController
+  parms = test_params
+    if parms[:expanding] == "true"
+        
+
+        @point = Point.find(parms[:point_id])
+        @subpoints = @point.points
+        @debate_current_user = current_user
+        
+        puts "id test"
+        puts @debate_current_user.id
+        
+        
+        
+        @side = "left"
+        @debate = Debate.find(327)
+        puts "test123"
+        @div_id = "collapse#{parms[:point_id]}"
+        respond_to do |format|
+            format.js { render :action => "test" }
+        end
+    end
+    
+    class PointsController < ApplicationController
 
  before_action :authenticate, only: [:create]
   
@@ -56,59 +78,25 @@ class PointsController < ApplicationController
   
   def update
      
-    if vote_params[:voting] == "true"
-        
-        puts "voting true"
-        
-       
-        
-        point_id = vote_params[:point_id]
-        puts "updating"
-        point = Point.find(point_id)
-        vote = Vote.new(user_id: current_user.id)
-        @badge_id = "#votebadge#{point_id}"
-        @button_id = "#votebutton#{point_id}"
-        
-        puts @badge_id
-        puts @button_id
-        
-        if vote.save
-        
-            point.votes << vote
-            @votes_count = point.votes.count
-            point.votes_count = @votes_count
-            point.save
-            
-            @saved=true
-            
-        end
-        
-        respond_to do |format|
-        
-            format.js 
-        end
-    end
-     
-     
     parms = test_params
     if parms[:expanding] == "true"
         
-        puts "worked"
+
         @point = Point.find(parms[:point_id])
         @subpoints = @point.points
-        
-        puts "test mem test" 
-        puts get_test_mem
-        
         @debate_current_user = current_user
-     
-        puts "worked2"
+        
+        puts "id test"
+        puts @debate_current_user.id
+        
+        
+        
         @side = "left"
         @debate = Debate.find(327)
         puts "test123"
         @div_id = "collapse#{parms[:point_id]}"
         respond_to do |format|
-            format.js { render :action => "expand" }
+            format.js { render :action => "test" }
         end
     end
 
@@ -159,10 +147,4 @@ def orphan?
     
   end
   
-end
-
-def testblah
-    
-    @testblah = 1
-    
 end

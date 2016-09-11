@@ -46,4 +46,10 @@ def user_voted?(point_id, voting_user_id)
     end
 end
 
+def testmem
+   
+   
+    
+end
+
 end
