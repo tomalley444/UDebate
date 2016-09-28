@@ -55,7 +55,8 @@ class PointsController < ApplicationController
   end
   
   def update
-     
+      puts "params test"
+    puts params
     if vote_params[:voting] == "true"
         
         puts "voting true"
@@ -89,26 +90,28 @@ class PointsController < ApplicationController
         end
     end
      
-     
+    puts "params test"
+    puts params
     parms = test_params
     if parms[:expanding] == "true"
         
         puts "worked"
         @point = Point.find(parms[:point_id])
-        @subpoints = @point.points
+        @num_clicks = parms[:num_clicks]
         
-        puts "test mem test" 
-        puts get_test_mem
+     
+        @subpoints = @point.points.take(@num_clicks)
         
         @debate_current_user = current_user
      
-        puts "worked2"
+
         @side = "left"
         @debate = Debate.find(327)
-        puts "test123"
-        @div_id = "collapse#{parms[:point_id]}"
+      
+        @div_id = "pointpartial#{@point.id}"
         respond_to do |format|
             format.js { render :action => "expand" }
+            format.json { render :action => "expand" }
         end
     end
 
@@ -144,7 +147,8 @@ end
 
 def test_params
     
-    params.require(:point).permit(:expanding, :point_id);
+    params.require(:point).permit(:expanding, :point_id, :showing, :num_clicks);
+   
 end
 
 def orphan?

@@ -1,5 +1,8 @@
 
 $(document).ready(function(){
+    
+    var num_clicks = 2
+    var point_id = 0
 
      $("#edit_point_565").submit(function() {
       alert( "Handler for .submit() called." );
@@ -19,10 +22,27 @@ $(document).ready(function(){
         
         
     })
- 
- $(document).bind('ajaxSuccess', function() {
-    alert('!');
-});
+
+
+ $("showmore").click(function() {
+     
+     
+        num_clicks = Number($(this).attr('num_clicks')) + 2
+        point_id = $(this).attr('id')
+        alert($(this).attr('num_clicks'))
+        $(this).attr('num_clicks', num_clicks )
+        $.ajax({
+            url: "/points/" + point_id,
+            type: "PATCH",
+            data: {point: {
+            expanding: true, 
+            point_id: point_id,
+            num_clicks: num_clicks
+            }},
+            success: function(resp){ }
+        });
+     
+      });
     
      $("#neutralShow").click(function(){
         

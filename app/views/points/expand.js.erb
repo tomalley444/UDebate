@@ -2,10 +2,10 @@ $( document ).ready(function() {
         
         
         var div_id = "<%= @div_id %>"
-        var foobar = "<%= @foobar %>";
+        var num_clicks = "<%= @num_clicks %>";
         
         $('#' + div_id).html("<%= escape_javascript(render partial: 'points/point3', collection: @subpoints, locals: {side: @side, debate: @debate, debate_current_user: @debate_current_user }) %>");
-        alert(numClicks);
+    
        
         
 })
