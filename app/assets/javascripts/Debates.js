@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-     alert("success")
+
     var num_clicks = 2
     var point_id = 0
 
@@ -29,6 +29,7 @@ $(document).ready(function(){
      
         num_clicks = Number($(this).attr('num_clicks')) + 2
         point_id = $(this).attr('id')
+        debate_id = $(this).attr('debate_id')
         alert($(this).attr('num_clicks'))
         $(this).attr('num_clicks', num_clicks )
         $.ajax({
@@ -37,7 +38,8 @@ $(document).ready(function(){
             data: {point: {
             expanding: true, 
             point_id: point_id,
-            num_clicks: num_clicks
+            num_clicks: num_clicks,
+            debate_id: debate_id
             }},
             success: function(resp){ }
         });

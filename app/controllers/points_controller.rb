@@ -95,7 +95,7 @@ class PointsController < ApplicationController
     parms = test_params
     if parms[:expanding] == "true"
         
-        puts "worked"
+        
         @point = Point.find(parms[:point_id])
         @num_clicks = parms[:num_clicks]
         
@@ -106,7 +106,7 @@ class PointsController < ApplicationController
      
 
         @side = "left"
-        @debate = Debate.find(327)
+        @debate = Debate.find(parms[:debate_id])
       
         @div_id = "pointpartial#{@point.id}"
         respond_to do |format|
@@ -147,7 +147,7 @@ end
 
 def test_params
     
-    params.require(:point).permit(:expanding, :point_id, :showing, :num_clicks);
+    params.require(:point).permit(:expanding, :point_id, :showing, :num_clicks, :debate_id);
    
 end
 
