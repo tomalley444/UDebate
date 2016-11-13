@@ -117,10 +117,23 @@
        <div class = "col-sm-4" id = "neutralSide" >
            <h2>Neutral</h2>
            <hr class="divider"></hr>
-
+            
+            <% if @participating %>
             <button class="btn btn-success" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeNeutralPoint">
                   Make a Point
+                  <%= @participating %>
             </button>   
+            
+            <% else %>
+            
+              <button class="btn btn-success disabled" style="width:100%; margin-bottom:5px; disabled: true;">
+                  Make a Point 
+                   
+              </button>
+             
+            <% end %>
+             
+            
                   <div id="makeNeutralPoint" class="collapse">
                 
                   <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: "neutral"} %>

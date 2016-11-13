@@ -53,12 +53,12 @@
                          
                          
                             <% if point.points.any? || point.side != "neutral" %>
-                            <button class="fa fa-plus" aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>></button>
+                            <button class="fa fa-plus" style = disabled: <%= @participating %> aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>></button>
                             <% end %>
-                            <% if side != point.side %>
+                            <% if side != point.side &&  @participating %>
                            
                         
-                            <button class="fa fa-comment" aria-hidden="true" data-toggle = "collapse" data-target =<%="#collapseform#{point.id}"%>></button>
+                            <button class="fa fa-comment"  aria-hidden="true" data-toggle = "collapse" data-target =<%="#collapseform#{point.id}"%>></button>
                             <% end %>
                             <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
                               
@@ -88,7 +88,7 @@
                             
                             <showmore id = <%="#{point.id}"%> num_clicks = "3">
                               
-                            testbest
+                             <a> show more</a>
                             </showmore>
                               
 
