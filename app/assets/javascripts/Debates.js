@@ -1,6 +1,6 @@
 
 $(document).ready(function(){
-    
+     alert("success")
     var num_clicks = 2
     var point_id = 0
 
