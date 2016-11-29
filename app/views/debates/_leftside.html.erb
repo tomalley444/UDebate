@@ -84,13 +84,16 @@
                           
                               <%= render partial: 'points/point2', collection: point.points.order(:votes_count).take(2), locals: {side: side, debate: debate} %>
                             
+                                <div class = "showmore">
+                                 <% if point.points.size >2 %>
+                                    <showmore id = <%="#{point.id}"%> num_clicks = "3" debate_id = <%="#{debate.id}"%>>
+                                      
+                                     <a> show more  (<%= point.points.size %> total subpoints) </a>
+                                    </showmore>
+                                <% end %>
+                            </div>
                            </div>
-                            
-                            <showmore id = <%="#{point.id}"%> num_clicks = "3" debate_id = <%="#{debate.id}"%>
-                              
-                             <a> show more</a>
-                            </showmore>
-                              
+                           
 
                       </div>
                 </div>   

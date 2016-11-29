@@ -109,6 +109,12 @@ class PointsController < ApplicationController
         @debate = Debate.find(parms[:debate_id])
       
         @div_id = "pointpartial#{@point.id}"
+        @showmore_div_id = "#{@point.id}"
+        @subpoints_size = @subpoints.size
+        
+        puts "showmoreid: #{@showmore_div_id}"
+        puts "subpoints size: #{@subpoints.size}"
+        
         respond_to do |format|
             format.js { render :action => "expand" }
             format.json { render :action => "expand" }

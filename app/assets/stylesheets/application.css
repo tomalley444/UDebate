@@ -32,6 +32,8 @@
 
 .panel-thread {
   margin-left: 10px;
+  border-left: dashed 1px #d3d3d3;
+
   
 }
 
@@ -46,6 +48,13 @@ th{
 tr{
   
   
+}
+
+.showmore{
+    
+    margin-bottom: 10px;
+
+    
 }
 
 .topic{
