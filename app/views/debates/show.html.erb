@@ -128,13 +128,13 @@
                             
                             <div>
                                 <span class = "left-stats-1">Talking Points:</span>
-                                <span class = "stats"><%= @debate.points.where("points.side == 'left' ").size %> </span>
+                                <span class = "stats"><%= @debate.points.where("points.side = 'left' ").size %> </span>
                                 <p></p>
                             </div>
                             
                             <div>
                                 <span class = "left-stats-1">Rebuddles:</span>
-                                <span class = "stats"><%= Point.where("points.side == 'left' AND points.debate_id == #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
+                                <span class = "stats"><%= Point.where("points.side = 'left' AND points.debate_id = #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
                                 <p></p>
                             </div>
                             
@@ -166,13 +166,13 @@
                             
                             <div>
                                 <span class = "right-stats-1">Talking Points:</span>
-                                <span class = "stats"><%= @debate.points.where("points.side == 'right' ").size %> </span>
+                                <span class = "stats"><%= @debate.points.where("points.side = 'right' ").size %> </span>
                                 <p></p>
                             </div>
                             
                             <div>
                                 <span class = "right-stats-1">Rebuddles:</span>
-                                <span class = "stats"><%= Point.where("points.side == 'right' AND points.debate_id == #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
+                                <span class = "stats"><%= Point.where("points.side = 'right' AND points.debate_id = #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
                                 <p></p>
                             </div>
                             
