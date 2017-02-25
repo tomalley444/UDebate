@@ -10,15 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160811225821) do
+ActiveRecord::Schema.define(version: 20170225130739) do
 
   create_table "debates", force: :cascade do |t|
     t.string   "topic"
     t.text     "summary"
     t.string   "category"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "owner_id"
+    t.text     "left_standpoint"
+    t.text     "right_standpoint"
+    t.integer  "num_participants"
+    t.integer  "num_points"
+    t.string   "moderator"
+    t.integer  "moderator_id"
+  end
+
+  create_table "flags", force: :cascade do |t|
+    t.integer  "point_id"
+    t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer  "owner_id"
+    t.index ["point_id"], name: "index_flags_on_point_id"
   end
 
   create_table "participations", force: :cascade do |t|
@@ -35,8 +49,8 @@ ActiveRecord::Schema.define(version: 20160811225821) do
     t.text     "body"
     t.integer  "pointable_id"
     t.string   "pointable_type"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "user_id"
     t.string   "side"
     t.string   "test"
@@ -44,6 +58,14 @@ ActiveRecord::Schema.define(version: 20160811225821) do
     t.integer  "point_debate_id"
     t.integer  "votes_count"
     t.integer  "test_field_one"
+    t.integer  "flag_count"
+    t.text     "old_text"
+    t.string   "status"
+    t.boolean  "dismissed"
+    t.integer  "weighted_vote_count"
+    t.         "left_vote_count"
+    t.integer  "left_vote_count2"
+    t.integer  "right_vote_count2"
     t.index ["pointable_type", "pointable_id"], name: "index_points_on_pointable_type_and_pointable_id"
     t.index ["user_id"], name: "index_points_on_user_id"
   end
@@ -64,7 +86,9 @@ ActiveRecord::Schema.define(version: 20160811225821) do
     t.integer  "point_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["id"], name: "index_votes_on_id"
     t.index ["point_id"], name: "index_votes_on_point_id"
+    t.index ["user_id"], name: "index_votes_on_user_id"
   end
 
 end

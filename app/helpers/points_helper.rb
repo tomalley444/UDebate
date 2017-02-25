@@ -46,9 +46,22 @@ def user_voted?(point_id, voting_user_id)
     end
 end
 
+def user_flagged?(point_id, flagging_user_id)
+   
+   point = Point.find(point_id)
+    if point.flags.where(user_id: flagging_user_id).exists?
+        true
+    else
+        false
+
+    end
+    
+    
+end
+
 def testmem
    
-   
+   puts "WORKED"
     
 end
 

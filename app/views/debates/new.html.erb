@@ -1,20 +1,29 @@
+<div class = "container">
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
 
         <%= form_for (@debate) do |f| %>
         
             <%= f.label :topic %>
-            <%= f.text_field :topic %>
+            <%= f.text_field :topic, class: 'form-control' %>
             
             <%= f.label :summary  %>
-            <%= f.text_area :summary %>
+            <%= f.text_area :summary, class: 'form-control' %>
             
             <%= f.label :category %>
-            <%= f.text_field :category %>
+            <%= f.text_field :category, class: 'form-control' %>
             
-            <%= f.submit "create new debate" %>
+            <%= f.label :left_standpoint %>
+            <%= f.text_area :left_standpoint, class: 'form-control' %>
+            
+            <%= f.label :right_standpoint %>
+            <%= f.text_area :right_standpoint, class: 'form-control' %>
+            
+            <%= f.submit "create new debate", class: 'form-control' %>
         
         <% end %>
-
+        
+        
     </div>
+</div>
 </div>

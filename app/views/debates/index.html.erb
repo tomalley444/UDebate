@@ -1,10 +1,47 @@
     
-<div class="container">    
+<div class="container-fluid">    
     <table class="table">
         <thead>
-          <tr>
-            <th class="col-sm-2">Topic</th>
-            <th class ="col-sm-10">Summary</th>
+          <tr >
+            <th class="col-sm-2" style = "vertical-align: top;">Topic</th>
+            <th class ="col-sm-10" 
+                <span  >
+                    
+                    Summary
+                    <span class = "float-right">
+                         <span class="dropdown" style = "vertical-align: top;">
+                          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> Sort by: <%= @sortation %>
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a> <%= link_to "Date Submitted", debates_path(sortation: "date") %></a></li>
+                            <li><a> <%= link_to "Participants", debates_path(sortation: "participation") %></a></li>
+                            <li><a> <%= link_to "Points", debates_path(sortation: "points") %></a></li>
+                            
+                          </ul>
+                          
+                          </span> 
+                          
+                          
+                    
+                    
+                     <span class="dropdown" style = "vertical-align: top;">
+                     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"> <%= @order %>
+                          <span class="caret"></span></button>
+                          <ul class="dropdown-menu">
+                            <li><a> <%= link_to "descending", debates_path(sortation: @sortation, order: "dscn") %></a></li>
+                            <li><a> <%= link_to "ascending", debates_path(sortation: @sortation, order: "ascn") %></a></li>
+                            
+                            
+                          </ul>
+                    
+                    
+                    </span>
+                </span>
+                
+                 
+           
+                
+            </th>
            
           </tr>
         </thead>
@@ -16,14 +53,18 @@
        
             <tr>
               
-            <td class="topic">  <a href="<%= debate_path(d.id) %>"><%= d.topic %> </a></td>
+            <td class="topic">  <a href="<%= debate_path(d.id) %>"><%= d.topic %>  </a></td>
             <td>
                 <div>
                     <%= d.summary %> 
+               
                 </div>
-                
-                <div class="indexFoot"> Submitted By: <%= link_to User.find(d.owner_id).name, user_path(User.find(d.owner_id).id) %></div>
-            
+                <span>
+                    <span class="indexFoot"> Submitted By: <%= link_to User.find(d.owner_id).name, user_path(User.find(d.owner_id).id) %> | </span>
+                    <span class="indexFoot"> Created On: <%= "        #{d.created_at.to_date}" %> | </span>
+                    <span class="indexFoot"> Participants: <%= "        #{d.num_participants}" %> | </span>
+                    <span class="indexFoot"> Points: <%= "        #{d.num_points}" %> </span>
+                </span>
             
             </td>
             
@@ -33,9 +74,62 @@
     
     
     <% end %> 
+  
     
-    <%= link_to "new", new_debate_path %>
+    
+    <div class = "jumbotron">
+        
+        <div class = "row">
+            <div class = "jumbo-text"> UDEBATE </div>
+        </div>
+        
+        <div class = "row">
+            <div class = "col-sm-4">
+                
+            </div>
+            <div class = "col-sm-4">
+                <div class = "jumbo-text2">
+                    
+                <div class="btn-group btn-group-justified">
+                  <a href="<%= new_debate_path %>" class="btn btn-primary">How To</a>
+                  <a href="#" class="btn btn-primary">Create New Discussion</a>
+                  
+                </div>
+                
+                
+                </div>
+            </div>
+           
+        </div>
+        
+        
+    </div>
+    
          </tbody>
     
     </table>
+    
+    <% if @showing > 0 %>
+    
+        <%= link_to "< Prev ", debates_path(showing: @showing-3) %>|
+        <% if (@showing + 3 < Debate.count ) %>
+              
+                
+                <%= link_to " Next >", debates_path(showing: @showing+3) %>
+        <% end %>
+                
+        
+    <% else %>
+    
+        <span>
+           
+            |
+            <% if (@showing + 3 < Debate.count ) %>
+    
+                
+                <%= link_to " Next >", debates_path(showing: @showing+3) %>
+            <% end %>
+        </span>
+    
+    <% end %>
 </div>

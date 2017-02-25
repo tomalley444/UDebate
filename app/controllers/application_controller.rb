@@ -6,5 +6,6 @@ class ApplicationController < ActionController::Base
    include PointsHelper
    include UsersHelper
    include DebatesHelper
+   include UtilsHelper
    
 end

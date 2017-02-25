@@ -33,8 +33,7 @@ module SessionsHelper
              
         else
 
-        flash[:danger] = "logged in!"
-        
+       
         end
     end
 

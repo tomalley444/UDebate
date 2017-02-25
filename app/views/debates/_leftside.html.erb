@@ -9,37 +9,75 @@
                    <div class = "<%= get_point_style(point) %>" >
 
                         <div class = "panel panel-heading">
+                                <div class ="container">
                                 <div class = "row">
                                      <div class = "col-sm-3 pull-left">
                                     <%= User.find(point.user_id).name %>
                                     </div>
                                     
-                                    <div class = "col-sm-6 pull-right">
+                                    
+                                    
+                                       <% if logged_in? && @participating && side == point.side%>
+                                       <div class = "col-sm-1 pull-right" style="width:10px padding-right:0px ">
+                                        <% if logged_in? && @participating && side == point.side %>
                                         
-                                    <div class = "col-sm-2 pull-right" style="width:10px">
-                                            <span class="badge" id="<%= "votebadge#{point.id}" %>" > <%= point.votes_count ||= 0%> </span>
-                                    </div>
-                                    <div class = "col-sm-2 pull-right" style="width:10px">
-                                        
-                                    <% if logged_in? && @participating %>
-                                        <%= form_for(point, remote: true) do |f| %>
-                                            <%= f.hidden_field :voting, value: true %>
-                                            <%= f.hidden_field :point_id, value: point.id %>
-                                           
-                                            <%= f.button :submit, name: "conceal", value: "1", id: "botebutton#{point.id}", disabled: user_voted?(point.id, @debate_current_user.id) do %>
-                                                <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                            <%= form_for(point, remote: true) do |f| %>
+                                                <%= f.hidden_field :voting, value: true %>
+                                                <%= f.hidden_field :point_id, value: point.id %>
+                                               
+                                                <%= f.button :submit, name: "conceal", value: "1", id: "botebutton#{point.id}", disabled: user_voted?(point.id, @debate_current_user.id) do %>
+                                                    <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                                <% end %>
+                                                
                                             <% end %>
-                                            
+                                        
+                                        
+                                        
+                                        <% elsif @participating && side == point.side %>
+                                        
+                                        <button disabled>
+                                            <i class="fa fa-thumbs-up" aria-hidden="true"></i>
+                                        </button>
+                                        
                                         <% end %>
+                                        </div>
+                                        <% end %>
+                                    <div class = "col-sm-6 pull-right" style = "padding-right:0px">
+                                        
                                     
+                                        
+                                            <% if point.side == "neutral" %>
+                                            <div class = "col-sm-6 pull-right" >
+                                                <div class = "row">
+                                                    
+                                                    
+                                                    <div class = "col-sm-1 pull-right" style="width:60px display: inline">
+                                                        <span class="badge" style="width:60px display: inline" id="<%= "votebadge#{point.id}" %>" > <%= point.weighted_vote_count ||= 0%></span>
+                                                    </div>
+                                                    
+                                                      <div class = "col-sm-1 pull-right" style="width:60px display: inline">
+                                                        <span class="badge-blue" style="width:60px display: inline" id="<%= "rightvotebadge#{point.id}" %>" > <%= point.right_vote_count2 ||= 0%></span>
+                                                    </div>
+                                                    <div class = "col-sm-1 pull-right" >
+                                                        <span class="badge-red" style="width:60px display: inline background-color: blue" id="<%= "leftvotebadge#{point.id}" %>" > <%= point.left_vote_count2 ||= 0%></span>
+                                                    </div>
+                                                    
+                                                  
+                                                </div>
+                                           
+                                            </div>
+                                             <% else %>
+                                                
+                                                    
+                                                    <div class = "col-sm-1 pull-right" >
+                                                        <span class="badge" style="width:60px display: inline" id="<%= "votebadge#{point.id}" %>" > <%= point.votes_count ||= 0%></span>
+                                                    </div>
+                                                    
+                                                 
+                                                
+                                            <% end %>
                                     
-                                    <% else %>
-                                    
-                                    <button disabled>
-                                        <i class="fa fa-thumbs-up" aria-hidden="true"></i>
-                                    </button>
-                                    
-                                    <% end %>
+                                 
                                     </div>
                                     </div>
                         </div>
@@ -50,18 +88,79 @@
                          </div>
                    
 
-                         
-                         
-                            <% if point.points.any? || point.side != "neutral" %>
-                            <button class="fa fa-plus" style = disabled: <%= @participating %> aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>></button>
-                            <% end %>
-                            <% if side != point.side &&  @participating %>
-                           
-                        
-                            <button class="fa fa-comment"  aria-hidden="true" data-toggle = "collapse" data-target =<%="#collapseform#{point.id}"%>></button>
-                            <% end %>
+                         <span>
+                                <span>
+                                <% if point.points.any? && point.side != "neutral" %>
+                                    <button class="fa fa-plus" style = disabled: <%= @participating %> aria-hidden="true" data-toggle = "collapse"  data-target = <%="#collapse#{point.id}"%>></button>
+                                <% end %>
+                                </span>
+                                
+                                 <span>
+                                <% if side != point.side &&  @participating %>
+                               
+                               
+                                <button class="fa fa-comment"  aria-hidden="true" data-toggle = "collapse" data-target =<%="#collapseform#{point.id}"%>></button>
+                                
+                                <% end %>
+                                </span>
+                                
+                                <span style = "width: 10px">
+                                
+                                </span>
+                                
+
+                                <span class = "pooltip" style = "padding-right: 20px;">
+                                    
+                                    <% if logged_in? %> 
+                                    
+                                    
+                                        <% if !user_flagged?(point.id, @debate_current_user.id) %>
+                                            <%= form_for point, remote: true, url: { :action => :flag, :controller => :points, :id => point.id}, method: :patch,   html: {class: "fa"} do |f| %>
+                                              
+                                               <%= f.button :submit, name: "conceal", value: "1", id: "flagbutton#{point.id}", style: " ", disabled: false do   %>
+                                                    <i class="fa fa-flag" aria-hidden="true"></i>
+                                                <% end %>
+                                                
+                                                <span class="pooltiptext">Flag as spam or abuse</span>
+                                            <% end %>
+                                        <% else %>
+                                                <button class = "fa fa-flag" disabled = "true" style = "color: red" ></button>
+                                                <span class="pooltiptext">Flag as spam or abuse</span>
+                                                
+                                        <% end %>
+                                        
+                                        
+                                        
+                                    <% end %> 
+                                </span>
+                                
+                                <div class = "col-sm-2 pull-right">
+                                <span style = "float: right; margin-right: 5px;" >
+                                    <% if logged_in? %> 
+                                        <% if ((@debate.moderator_id == @debate_current_user.id)  || (point.user_id == @debate_current_user.id))%> 
+                                        
+                                        
+                                            
+                                                <%= form_for point, url: { :action => :remove, :controller => :points, :id => point.id}, method: :patch,   html: {class: "fa"} do |f| %>
+                                                  
+                                                   <%= f.button :submit, name: "conceal", value: "1", style: " ", disabled: false do   %>
+                                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                                    <% end %>
+                                                    
+                                                    <span class="pooltiptext">Flag as spam or abuse</span>
+                                                <% end %>
+                                           
+                                            
+                                            
+                                            
+                                        <% end %>
+                                    <% end %> 
+                                    
+                                </span>
+                                </div>
+                            
                             <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
-                              
+                        </span>
                          
                             
                             <%= form_for ([debate, debate.points.new]) do |f| %>
@@ -69,9 +168,9 @@
                               <%= f.hidden_field :debate_id, value: debate.id %>
                              
                               
-                              <%= f.text_area :body, class: 'form-control' %>
+                              <%= f.text_area :body , class: "form-control"  %>
                               
-                              <%= f.submit "Submit Rebuddle", class: 'form-control' %>
+                              <%= f.submit "Submit Rebuddle" , class: "form-control" %>
                     
                             <% end %>
                             </div>
@@ -82,19 +181,18 @@
                            <div id = <%="pointpartial#{point.id}"%> >
                            
                           
-                              <%= render partial: 'points/point2', collection: point.points.order(:votes_count).take(2), locals: {side: side, debate: debate} %>
+                              <%= render partial: 'points/point2', collection: point.points.order(:votes_count).take(2), locals: {side: side, debate: debate, showing: 2} %>
                             
                                 <div class = "showmore">
                                  <% if point.points.size >2 %>
                                     <showmore id = <%="#{point.id}"%> num_clicks = "3" debate_id = <%="#{debate.id}"%>>
                                       
-                                     <a> show more  (<%= point.points.size %> total subpoints) </a>
+                                     <a> show more  (<%= point.points.size-2%> total subpoints) </a>
                                     </showmore>
                                 <% end %>
                             </div>
                            </div>
-                           
-
+                    
                       </div>
                 </div>   
                    

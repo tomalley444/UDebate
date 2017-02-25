@@ -1,0 +1,4 @@
+$('#showmoretab').html(" <%= escape_javascript(render partial: 'moderations/moderationtab', locals: {debate: @debate, flagged_posts: @flagged_posts } ) %> ");
+
+$('#flaggedpoststable').toggle("fast");
+

@@ -1,150 +1,133 @@
-  parms = test_params
-    if parms[:expanding] == "true"
-        
+<div class = row>
+<div class = "table-layout">
 
-        @point = Point.find(parms[:point_id])
-        @subpoints = @point.points
-        @debate_current_user = current_user
-        
-        puts "id test"
-        puts @debate_current_user.id
-        
-        
-        
-        @side = "left"
-        @debate = Debate.find(327)
-        puts "test123"
-        @div_id = "collapse#{parms[:point_id]}"
-        respond_to do |format|
-            format.js { render :action => "test" }
-        end
-    end
-    
-    class PointsController < ApplicationController
+<div class = "table-cell">
 
- before_action :authenticate, only: [:create]
-  
-  def new
-  end
-  
-  def test1
-  
-  end
-  def create 
+   
+            <div class = container style="display: inline-block;"> 
+            
+            </div>
+           
+            <% #if !Participation.where(user_id: current_user.id, debate_id: @debate.id).exists? %>
+     
       
-     
-     puts params[:point][:parent_id].nil?
-     
-     debateID = params[:point][:debate_id]
-     parentID = params[:point][:parent_id]
-     
-     parentDebate = Debate.find(debateID)
-     
-     
-     newPoint = Point.new(point_params)
-     newPoint.user_id = current_user.id
-     newPoint.debate_id = (debateID)
-     
-    puts "side test"
-    puts newPoint.side
-    
-    
-    if newPoint.side != "neutral"
-        
-        newPoint.side = get_side(current_user, debateID)
-        
-    end
-    
-  
-    
-    if orphan?
-    
-        newPoint.save 
-        parentDebate.points << newPoint
-    
-    else 
-        parentPoint = Point.find(parentID)
-        puts "not orphan"
-        newPoint.save
-        parentPoint.points << newPoint
-    
-    end
-     
-     if !request.referrer.nil?
-        redirect_to request.referrer 
-     end
-     
-  end
-  
-  def update
-     
-    parms = test_params
-    if parms[:expanding] == "true"
-        
 
-        @point = Point.find(parms[:point_id])
-        @subpoints = @point.points
-        @debate_current_user = current_user
-        
-        puts "id test"
-        puts @debate_current_user.id
-        
-        
-        
-        @side = "left"
-        @debate = Debate.find(327)
-        puts "test123"
-        @div_id = "collapse#{parms[:point_id]}"
-        respond_to do |format|
-            format.js { render :action => "test" }
-        end
-    end
+</div>
 
-  end
-
-  def destroy
-   
+<div class = "table-cell fixed-width-300">
     
    
+       
+      </div>
+
+
+</div>
+
+</div>
+
+</div>
+      
+
+      <div id = "leftSide" class = "col-sm-4" >
+           <h2>Left Side</h2>
+           <hr class="divider"></hr>
+
+            <% if @side == "left" && @participating %>
+                  <button class="btn btn-danger" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeLeftPoint">
+                        Make a Point
+                  </button>   
+                  
+                  <div id="makeLeftPoint" class="collapse">
+                  
+                        <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
+                  
+                  </div>
+           
+            <% else %>
+                  <button class="btn btn-danger disabled" style="width:100%; margin-bottom:5px; disabled: true;">
+                        Make a Point
+                  </button>   
+            <% end %>
    
-  end
-
-  def show
-  end
-
-  def edit
-  end
-end
-
-private
-
-def point_params
+        <% if Debate.find(@debate.id).points.any? %>
+            <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="left" }, side: @side, debate: @debate} %>
+        <% end %>
+      
  
- params.require(:point).permit(:body, :votes, :side)
- 
-end
-
-def vote_params
- 
- params.require(:point).permit(:voting, :point_id)
- 
-end
-
-def test_params
-    
-    params.require(:point).permit(:expanding, :point_id);
-end
-
-def orphan?
+      </div>
   
-  if params[:point][:parent_id] == "debate"
-    
-    true
-  
-  else 
+ 
+           
 
-    false
-    
-  end
-  
-end
+       <div class = "col-sm-4" id = "neutralSide" >
+           <h2>Neutral</h2>
+           <hr class="divider"></hr>
+            
+            <% if @participating %>
+            <button class="btn btn-success" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeNeutralPoint">
+                  Make a Point
+                  
+            </button>   
+            
+            <% else %>
+            
+              <button class="btn btn-success disabled" style="width:100%; margin-bottom:5px; disabled: true;">
+                  Make a Point 
+                   
+              </button>
+             
+            <% end %>
+             
+            
+                  <div id="makeNeutralPoint" class="collapse">
+                
+                  <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: "neutral"} %>
+                       
+                  </div>
+                  
+     
+         <% if Debate.find(@debate.id).points.any? %>
+            <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="neutral" }, side: "neutral", debate: @debate} %>
+         <% end %>
+     
+       
+
+      </div>
+
+      <div class = "col-sm-4" id = "rightSide" >
+              <h2>Right Side</h2>
+           <hr class="divider"></hr>
+           
+            <% if @side == "right" && @participating %>
+            
+             <button class="btn btn-info" style="width:100%; margin-bottom:5px;"data-toggle = "collapse"  data-target = "#makeRightPoint">
+                              Make a Point
+             </button>
+            
+                  <div id="makeRightPoint" class="collapse">
+                       <%= render partial: "/debates/newpoint", locals: {debate: @debate, side: @side} %>
+
+                  </div>
+                  
+            <% else %>
+                  <button class="btn btn-info disabled" style="width:100%; margin-bottom:5px; disabled: true;">
+                        Make a Point
+                  </button>
+            
+            <% end %>
+            
+             
+          <% if Debate.find(@debate.id).points.any? %>
+                  <%= render partial: "/debates/leftside", locals: {points: @debate_points.select{|point| point.side=="right" }, side: @side, debate: @debate} %>
+          <% end %>
+         
+           
+           
+      </div>
+
+   
+     
+       
+
+
+

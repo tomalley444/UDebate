@@ -2,13 +2,40 @@
 
 <% provide(:title, @user.name) %>
 <div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-       
-        <%= @user.name %>
-        <%= @user.id %>
-      </h1>
-    </section>
-  </aside>
+  <div class = "col-sm-1">
+    
+  </div>
+  <div class="col-md-4">
+      <h2> Debates Currently Participating</h2>
+      <div class = "well">
+      <div class="table-responsive">          
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Debate</th>
+                  <th>Points Made</th>
+
+
+                </tr>
+                
+              </thead>
+              
+              <tbody>
+              
+                 <%  @participating_debates.each do |d| %> 
+                    <tr>
+                      <td> <%= link_to d.topic, debate_path(d.id) %> </td>
+                      <td> <%= count_user_points(d, @user)  %> </d>
+                    </tr>
+                    
+
+                  <% end %>
+
+              </tbody>
+              
+            </table>
+        </div>
+        </div>
+   
+  </div>
 </div>

@@ -1,0 +1,11 @@
+<div class = "showmore">
+    
+    
+    <% if point2.points.size >2  %>
+        <showmore id = <%="#{point2.id}"%> num_clicks = "3" debate_id = <%="#{debate.id}"%>>
+            
+                <a id=<%="showmorepartial#{point2.id}"%>> show more (<%= point2.points.size - 2 %> hidden) </a>
+          
+        </showmore>
+     <% end %>
+</div>

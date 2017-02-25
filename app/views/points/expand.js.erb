@@ -1,17 +1,23 @@
 $( document ).ready(function() {
         
-        
+    
         var div_id = "<%= @div_id %>"
         var num_clicks = "<%= @num_clicks %>";
-        var subpoints_size = "<%= @subpoints.size %>";
+        var points_size = "<%= @points_size %>";
         var show_more_id = "<%= @showmore_div_id %>";
+       
+ 
      
         <%= escape_javascript(puts @debate_current_user.name ) %>
 
         
-        $('#' + div_id).html("<%= escape_javascript(render partial: 'points/point2',  collection: @subpoints, locals: {side: @side, debate: @debate} ) %>");
-        if(num_clicks >= subpoints_size){
+        $('#' + div_id).html("<%= escape_javascript(render partial: 'points/point2',  collection: @subpoints, locals: {side: @side, debate: @debate, showing: @num_clicks} ) %>");
+        var text = "show more (" + (points_size - num_clicks) + " hidden)"
+        $('#' + show_more_id).text(text)
         
+       
+        if(Number(num_clicks) >= Number(points_size)){
+     
                 $('#' + show_more_id).html("");
         
         }

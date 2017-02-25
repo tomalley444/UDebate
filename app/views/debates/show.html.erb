@@ -1,28 +1,67 @@
+<%= render '/shared/error_messages_point' %>
 
-<div class="container-fluid">
-
-      <div class="row">
-            
-            <div class="col-md-10">
+<div class="table-layout">
+  
+    <div class="table-cell">
+       <div id="testabc">
                   <div class="panel panel-default">
                         <div class="panel panel-heading">
-                              
+                             
+                              <span class="debate-title-1">Topic:</span>
+                             
+                             <span class="debate-title-2">
                               <%= @debate.topic %>
+                             </span>
+                              
+                              
                         </div>
                         <div class="panel panel-body" style="margin-bottom:0px;">
-                              <%= @debate.summary %>
+                          
+                              <div class="row">
+                                  
+                                  <div class = "col-md-12">
+                                      <span class="debate-body-1"> Neutral Description: </span>
+                                     
+                                     <span class="debate-body-2">
+                                         <%= @debate.summary %>
+                                     </span>
+                                 </div>
+                               </div>
+                               <hr class="divider"></hr>
+                               <div class="row">
+                                   <div class = "col-md-6 border">
+                                              <span class="debate-body-1"> Left Standpoint: </span>
+                                          
+                                         <span class="debate-body-2">
+                                             <%= @debate.left_standpoint %>
+                                         </span>
+                                    </div>
+                                    
+                                    <div class = "col-md-6">
+                                              <span class="debate-body-1"> Right Standpoint: </span>
+                                          
+                                         <span class="debate-body-2">
+                                             <%= @debate.right_standpoint %>
+                                         </span>
+                                    </div>
+                                    
+                               </div>
+                               
+                              
                                
                         </div>
 
                   </div>
-            </div>
-           
-            <% #if !Participation.where(user_id: current_user.id, debate_id: @debate.id).exists? %>
-      <% if !logged_in? %>
-            <div class="col-sm-2">
+            </div>  
+    </div>
+    
+      <div class="table-cell fixed-width-200">
+          <% if !logged_in? %>
+          
+       
             <div class = "well">
                
-                    <h4>Participation Info</h1>
+                    <h4>Debate Info</h1>
                     <hr class="divider"></hr>
                    
                     <p>Please Login or Sign Up to Participate</p>
@@ -30,33 +69,132 @@
                     <%= link_to "signup", signup_path %>
                         
                  
-            </div>
-            </div>
-      
-      
+         
+        </div>
+        
       <% elsif !@participating %>
-            <div class="col-sm-2">
+    
             <div class = "well">
                   
-                    <h4>Participation Info</h1>
+                    <h4>Debate Info</h1>
                     <hr class="divider"></hr>
+                    <p>Please choose a side to begin contributing to this discussion... <br /><br /> </p>
                    <%= form_tag(controller: "participations", action: "create", method: "post", class: "form-inline") do %>
        
                         <%= hidden_field_tag(:debate_id, :debate_id, value: @debate.id) %>
-                        <h4>Pick a Side:</h4>
+                        <h4>Choose a Side:</h4>
                         <%= select_tag("side", options_for_select([['Left', "left"], ['Right', "right"]]), {:class => 'form-control'}) %>
                         
                         <%= submit_tag "Submit", name: nil, class: "btn btn-success green" %>
                         
                   <% end %>
-            </div>
+
             </div>
       <% else %>
-            <div class="col-md-2">
+        
             <div class="well">
                     <h4>Participation Info</h1>
-                    <hr class="divider"></hr>
-                    <%= "Side: #{@side}" %>
+                    <hr class = "divider-2"></hr>
+                    
+                    
+                    
+                        
+                        
+                        
+                        <div>
+                            <span class = "left-stats-1">Total Participants:</span>
+                            <span class = "stats"><%= @debate.participations.size %> </span>
+                            <p></p>
+                        </div>
+                        
+                         <div>
+                            <span class = "left-stats-1">Current Side:</span>
+                            <span class = "stats"><%= @side%> </span>
+                        </div>
+                        
+                        <hr class = "divider-2"></hr>
+                        
+                        
+                        
+                        
+                        <div class="col-md-6 border-stats">
+                            
+                            <h4 class = "left-stats">Left</h4>
+                            <div>
+                                <span class = "left-stats-1">Participants:</span>
+                                <span class = "stats"><%= @debate.participations.where(side: "left").size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "left-stats-1">Talking Points:</span>
+                                <span class = "stats"><%= @debate.points.where("points.side == 'left' ").size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "left-stats-1">Rebuddles:</span>
+                                <span class = "stats"><%= Point.where("points.side == 'left' AND points.debate_id == #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "right-stats-1">Votes:</span>
+                                <span class = "stats"> <%= @num_left_votes %> </span>
+                                <p></p>
+                            </div>
+                            
+                             <div>
+                                <span class = "right-stats-1">Multiplier:</span>
+                                <span class = "stats"> <%= @left_mult %> </span>
+                                <p></p>
+                            </div>
+                            
+                            
+                        </div>
+                        
+                       
+                         
+                        <div class="col-md-6 border-stats-2">
+                            
+                            <h4 class = "right-stats">Right</h4>
+                            <div>
+                                <span class = "right-stats-1">Participants:</span>
+                                <span class = "stats"><%= @debate.participations.where(side: "right").size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "right-stats-1">Talking Points:</span>
+                                <span class = "stats"><%= @debate.points.where("points.side == 'right' ").size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "right-stats-1">Rebuddles:</span>
+                                <span class = "stats"><%= Point.where("points.side == 'right' AND points.debate_id == #{@debate.id} AND points.pointable_type != 'Debate' " ).size %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "right-stats-1">Votes:</span>
+                                <span class = "stats"> <%= @num_right_votes %> </span>
+                                <p></p>
+                            </div>
+                            
+                            <div>
+                                <span class = "right-stats-1">Multiplier:</span>
+                                <span class = "stats"> <%= @right_mult %> </span>
+                                <p></p>
+                            </div>
+                            
+                            
+                        </div>
+                            
+                     
+                    
+                    
+                    
                         <%= form_for @participation do |f| %>
                           
                         
@@ -68,20 +206,17 @@
                           <button type="button" id = "neutralShow" class="btn btn-success">Neutral</button>
                           <button type="button" id = "rightShow" class="btn btn-info">Right</button>
                         </div>
-            </div>
+                        
+                          
+                    
+        
             </div>
            
             
       <% end %>
-       
-      </div>
+    </div>
 </div>
 
-
-
-
-
-      
 
       <div id = "leftSide" class = "col-sm-4" >
            <h2>Left Side</h2>
@@ -179,10 +314,3 @@
            
            
       </div>
-
-   
-     
-       
-
-
-

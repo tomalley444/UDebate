@@ -6,6 +6,11 @@ Rails.application.routes.draw do
   get 'sessions/new'
 
   resources :users
+  
+  get 'moderations' => 'moderations#moderations'
+  
+  get 'moderation/:id' => 'moderations#moderation'
+  
   get 'points/new'
 
   get 'points/destroy'
@@ -22,9 +27,20 @@ Rails.application.routes.draw do
   
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
+  
+  
+  
   delete 'logout' => 'sessions#destroy'
   
+  patch 'points/flag' => 'points#flag'
+  
+  patch 'points/remove' => 'points#remove'
+
+  patch 'points/remove_ajax' => 'points#remove_ajax'
+ patch 'points/dismiss' => 'points#dismiss'
+ patch 'points/dismiss_ajax' => 'points#dismiss_ajax'
  
+ patch 'moderations/show_more' => 'moderations#show_more'
   
   resources :points do
     resources :points

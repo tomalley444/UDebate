@@ -1,0 +1,71 @@
+
+  
+    <div class = "col-sm-12" style ="display: none;" id = "flaggedpoststable">
+      
+      <div class = "well">
+    
+      <h2>Flagged Posts for Debate: <%= debate.topic %> </h2>
+                               
+        <div class="table-responsive">       
+        
+          <table class="table">
+            
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Post</th>
+                <th>Flags</th>
+                <th>Votes</th>
+                <th>Remove Post</th>
+                <th>Dismiss Flags</th>
+              </tr>
+            </thead>
+            
+            <tbody>
+              
+
+              <% flagged_posts.each do |p| %>
+         
+              
+                <tr>
+                  <td><%= User.find(p.user_id).name %></td>
+                  <td><%= p.body %></td>
+                  <td><%= p.flag_count %></td>
+                  <td><%= p.votes_count %></td>
+                  <td>
+                        <span style = "margin-left: 2px" >
+                            
+        
+                            <%= form_for p, remote: true, url: { :action => :remove_ajax, :controller => :points, :id => p.id}, method: :patch,   html: {class: "fa"} do |f| %>
+                              
+                               <%= f.button :submit, name: "conceal", value: "1", style: " ", disabled: false do   %>
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                <% end %>
+                                
+                                <span class="pooltiptext">Flag as spam or abuse</span>
+                            <% end %>
+                               
+                                
+                        </span></td>
+                  <td>
+                    
+                    <%= form_for p, remote: true, url: { :action => :dismiss_ajax, :controller => :points, :id => p.id}, method: :patch,   html: {class: "fa"} do |f| %>
+                                      
+                             <%= f.button :submit, name: "conceal", value: "1", style: " ", disabled: false do   %>
+                                  <i class="fa fa-check" aria-hidden="true"></i>
+                              <% end %>
+                              
+                              <span class="pooltiptext">Flag as spam or abuse</span>
+                          <% end %>
+                  </td>
+                </tr>
+              
+              <% end %> 
+              
+              
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    

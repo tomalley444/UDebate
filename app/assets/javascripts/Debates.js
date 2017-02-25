@@ -27,8 +27,8 @@ $(document).ready(function(){
 
     $("showmore").click(function() {
      
-        
         num_clicks = Number($(this).attr('num_clicks')) + 2
+        $(this).attr('num_clicks').value = num_clicks
         point_id = $(this).attr('id')
         debate_id = $(this).attr('debate_id')
      
@@ -42,10 +42,12 @@ $(document).ready(function(){
             num_clicks: num_clicks,
             debate_id: debate_id
             }},
-            success: function(resp){ }
+            success: function(resp){  }
         });
      
       });
+      
+     
     
      $("#neutralShow").click(function(){
         

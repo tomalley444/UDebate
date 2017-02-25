@@ -1,0 +1,63 @@
+
+<div class="container" style = "margin-left: 15px">
+    
+    <div class  = "row">
+      
+      
+      <div class = "col-sm-4">
+         <div class = "well">
+        <h2>Debates Currently Moderating</h2>
+                                 
+        <div class="table-responsive">          
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Debate</th>
+                  <th>Flagged Posts</th>
+                </tr>
+              </thead>
+              
+              <tbody>
+              
+                 <%  @debates_moderating.each do |d| %> 
+                  
+                  
+                    <tr>
+                      <td> <%= link_to d.topic, debate_path(d.id) %> </td>
+                            <td>
+                              
+                           <span class = "pooltip" style = "height: 3px; display: inline-block">
+                             
+                      
+                               <%= form_for moderations_url, remote: true, url: { :action => :show_more, :controller => :moderations, :id => d.id}, method: :patch,   html: {class: "fa" } do |f| %>
+                    
+                                       <%= f.submit get_flagged_posts_num(d) %>
+                         
+                                         
+                                               
+                                           
+                                  
+                             
+                           </span>
+                                    <span class="pooltiptext">Click to View flagged posts</span>
+                                <% end %>
+                       
+                     
+                    </tr>
+                    
+                  <% end %>
+            
+              </tbody>
+              
+            </table>
+        </div>
+        </div>
+      </div>
+      
+         
+    <div class = "col-sm-8" id = "showmoretab">
+ 
+
+    </div>
+    </div>
+</div>

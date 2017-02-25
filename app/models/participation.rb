@@ -5,6 +5,5 @@ class Participation < ApplicationRecord
   
   
   validates :user, uniqueness: {scope: :debate} 
-   
   
 end

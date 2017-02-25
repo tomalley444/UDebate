@@ -15,9 +15,16 @@ class SessionsController < ApplicationController
       puts logged_in?
       redirect_to current_user
      
+    elsif !user
+    
+      flash.now[:danger] = "User not found, please create an account"
+      render('new')
+    
     else
-      
-    flash.now[:danger] = "invalid login information"
+    
+    
+    flash.now[:danger] = "incorrect password/email confirmation, please try again"
+   
     render('new')
    
     end
