@@ -29,7 +29,7 @@ class DebatesController < ApplicationController
       
     end
     
-    debate_neutrals = @debate_points.where("points.side == 'neutral'")
+    debate_neutrals = @debate_points.where("points.side = 'neutral'")
     
     
     
