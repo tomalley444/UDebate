@@ -6,7 +6,7 @@ class VoteSideValidator < ActiveModel::Validator
           point = Point.find(record.point_id)
           debate_id = point.debate_id
           
-          participation = Participation.where("user_id == #{record.user_id} AND debate_id == #{debate_id}").take
+          participation = Participation.where("user_id = #{record.user_id} AND debate_id = #{debate_id}").take
       
           puts "part test"
           puts participation.side
