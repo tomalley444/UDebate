@@ -38,7 +38,11 @@ module UsersHelper
         debates = []
         
         debate_ids.each do |d|
-            debates << Debate.find(d)
+            
+            if Debate.exists?(d)
+                
+             debates << Debate.find(d)
+            end
         end
         
         puts debates
