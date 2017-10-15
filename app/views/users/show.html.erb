@@ -23,10 +23,13 @@
               <tbody>
               
                  <%  @participating_debates.each do |d| %> 
+                    <% if d.exists? %>
                     <tr>
+                 
                       <td> <%= link_to d.topic, debate_path(d.id) %> </td>
                       <td> <%= count_user_points(d, @user)  %> </d>
                     </tr>
+                    <% end %>
                     
 
                   <% end %>
