@@ -5,18 +5,17 @@
 <div class = "panel-thread">
    <div class = "<%= get_point_style(point2) %>" >
       
-         <div class = "panel panel-heading">
+         <div class = "panel panel-heading" style = "padding: 0">
+             <div class="container">
              <div class = "row">
              <div class = "col-sm-3 pull-left">
             <%= User.find(point2.user_id).name %>
             </div>
             
-            <div class = "col-sm-6 pull-right">
+            
                 
-            <div class = "col-sm-2 pull-right" style="width:10px">
-                    <span class="badge" id="<%= "votebadge#{point2.id}" %>" > <%= point2.votes_count ||= 0%> </span>
-            </div>
-            <div class = "col-sm-2 pull-right" style="width:10px">
+            
+            <div class = "col-sm-1 pull-right" style="padding:0px">
                 
             <% if logged_in? && @participating  && side == point2.side %>   
             <%= form_for(point2, remote: true) do |f| %>
@@ -37,10 +36,16 @@
                 
                 <% end %>
             </div>
-            
-            
+           
+            <div class = "col-sm-6 pull-right" style="padding:0px">
+                 <div class = "row">
+                     <div class = "col-sm-3 pull-right" style = "padding-right: 5">
+                    <span class="badge" id="<%= "votebadge#{point2.id}" %>" > <%= point2.votes_count ||= 0%> </span>
+                    </div>
+                 </div>
+          
             </div>
-
+            </div>
             </div>
          </div>
          <div class = "panel-body">
@@ -91,8 +96,11 @@
             </span>
             
 
-                <div class = "col-sm-2 pull-right">
-                <span style = "float: right; margin-right: 5px;" >
+            
+            <span>
+                
+             </span>
+              <span style = "margin-left: 35px;" >
                                     
                     <% if logged_in? %> 
                         <% if ((@debate.moderator_id == @debate_current_user.id)  || (point2.user_id == @debate_current_user.id))%> 
@@ -115,11 +123,6 @@
                     <% end %>
                     
                 </span>
-                </div>
-            
-            <span>
-                
-             </span>
             <div id =<%="collapseform#{point2.id}"%> class = "panel-collapse collapse" >
              </span>
             

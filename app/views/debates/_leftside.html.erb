@@ -8,7 +8,7 @@
                 <div class = "panel-thread">
                    <div class = "<%= get_point_style(point) %>" >
 
-                        <div class = "panel panel-heading">
+                        <div class = "panel panel-heading" style="padding: 0">
                                 <div class ="container">
                                 <div class = "row">
                                      <div class = "col-sm-3 pull-left">
@@ -18,7 +18,7 @@
                                     
                                     
                                        <% if logged_in? && @participating && side == point.side%>
-                                       <div class = "col-sm-1 pull-right" style="width:10px padding-right:0px ">
+                                       <div class = "col-sm-1 pull-right" style = "padding: 0">
                                         <% if logged_in? && @participating && side == point.side %>
                                         
                                             <%= form_for(point, remote: true) do |f| %>
@@ -42,7 +42,7 @@
                                         <% end %>
                                         </div>
                                         <% end %>
-                                    <div class = "col-sm-6 pull-right" style = "padding-right:0px">
+                                    <div class = "col-sm-6 pull-right" style = "padding-right:10px">
                                         
                                     
                                         
@@ -51,14 +51,14 @@
                                                 <div class = "row">
                                                     
                                                     
-                                                    <div class = "col-sm-1 pull-right" style="width:60px display: inline">
+                                                    <div class = "col-sm-4" >
                                                         <span class="badge" style="width:60px display: inline" id="<%= "votebadge#{point.id}" %>" > <%= point.weighted_vote_count ||= 0%></span>
                                                     </div>
                                                     
-                                                      <div class = "col-sm-1 pull-right" style="width:60px display: inline">
+                                                      <div class = "col-sm-4" >
                                                         <span class="badge-blue" style="width:60px display: inline" id="<%= "rightvotebadge#{point.id}" %>" > <%= point.right_vote_count2 ||= 0%></span>
                                                     </div>
-                                                    <div class = "col-sm-1 pull-right" >
+                                                    <div class = "col-sm-4" >
                                                         <span class="badge-red" style="width:60px display: inline background-color: blue" id="<%= "leftvotebadge#{point.id}" %>" > <%= point.left_vote_count2 ||= 0%></span>
                                                     </div>
                                                     
@@ -104,9 +104,6 @@
                                 <% end %>
                                 </span>
                                 
-                                <span style = "width: 10px">
-                                
-                                </span>
                                 
 
                                 <span class = "pooltip" style = "padding-right: 20px;">
@@ -134,8 +131,10 @@
                                     <% end %> 
                                 </span>
                                 
-                                <div class = "col-sm-2 pull-right">
-                                <span style = "float: right; margin-right: 5px;" >
+                                <span style = "width: 10px">
+                                
+                                </span>
+                                <span style = "margin-left: 15px">
                                     <% if logged_in? %> 
                                         <% if ((@debate.moderator_id == @debate_current_user.id)  || (point.user_id == @debate_current_user.id))%> 
                                         
@@ -157,10 +156,13 @@
                                     <% end %> 
                                     
                                 </span>
-                                </div>
+                               
                             
-                            <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
-                        </span>
+                            
+                      
+                      
+                      <div id =<%="collapseform#{point.id}"%> class = "panel-collapse collapse" >
+                        
                          
                             
                             <%= form_for ([debate, debate.points.new]) do |f| %>
@@ -175,7 +177,7 @@
                             <% end %>
                             </div>
                       </div>
-                      
+                      </span>
                        <div id = <%="collapse#{point.id}"%> class = "panel-collapse collapse in" >
                            
                            <div id = <%="pointpartial#{point.id}"%> >
