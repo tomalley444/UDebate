@@ -161,7 +161,7 @@ module DebatesHelper
         
         
     
-        user_points = Point.where("points.user_id ==#{user.id} AND points.debate_id ==#{debate.id}")
+        user_points = Point.where("points.user_id =#{user.id} AND points.debate_id =#{debate.id}")
         if !user_points.nil?
             return user_points.size
         else
